@@ -34,5 +34,5 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClassName = "covidukview.AppKt"
+    mainClassName = "com.exentriquesolutions.covidukview.AppKt"
 }
