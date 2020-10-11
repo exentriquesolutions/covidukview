@@ -7,4 +7,7 @@
  * in the user manual at https://docs.gradle.org/6.6.1/userguide/multi_project_builds.html
  */
 
+pluginManagement {
+    val kotlinVersion: String by settings
+}
 rootProject.name = "covidukview"
