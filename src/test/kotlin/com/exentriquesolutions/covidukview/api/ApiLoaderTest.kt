@@ -1,5 +1,6 @@
-package com.exentriquesolutions.covidukview
+package com.exentriquesolutions.covidukview.api
 
+import com.exentriquesolutions.covidukview.view.AreaType
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.greaterThan
 import com.natpryce.hamkrest.hasElement
@@ -8,9 +9,9 @@ import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 
-class LoaderTest {
+class ApiLoaderTest {
 
-    private val loader = Loader()
+    private val loader = ApiLoader()
 
     @Test
     fun `should load regions from api`() {
@@ -22,7 +23,8 @@ class LoaderTest {
 
     @Test
     fun `should load cases for a region from api`() {
-        val cases = runBlocking { loader.loadCases(Region("Southwark", AreaType.LowerTierLocaLAuthority)) }
+        val region = Region("Southwark", AreaType.LowerTierLocaLAuthority)
+        val cases = runBlocking { loader.loadCases(region) }
 
         assertThat(cases, hasSize(greaterThan(200)))
         assertThat(cases, hasElement(Cases(LocalDate.of(2020, 9, 6), 5)))

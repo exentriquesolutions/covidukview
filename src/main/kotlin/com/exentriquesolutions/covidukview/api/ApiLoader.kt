@@ -1,9 +1,10 @@
-package com.exentriquesolutions.covidukview
+package com.exentriquesolutions.covidukview.api
 
+import com.exentriquesolutions.covidukview.view.AreaType
 import org.springframework.stereotype.Component
 
 @Component
-class Loader {
+class ApiLoader {
     private val apiClient = ApiClient()
 
     suspend fun loadRegions(): List<Region> =
@@ -14,7 +15,8 @@ class Loader {
 
     suspend fun loadCases(region: Region): List<Cases> =
             apiClient.data(
-                    region,
+                    region.type,
+                    region.name,
                     mapOf("date" to "date", "count" to "newCasesBySpecimenDate")
             )
 }

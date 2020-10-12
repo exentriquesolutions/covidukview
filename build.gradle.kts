@@ -43,9 +43,17 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8")
     implementation("commons-io:commons-io:2.8.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8")
+    implementation("io.r2dbc:r2dbc-postgresql:0.8.5.RELEASE")
+    implementation("org.postgresql:postgresql")
+    implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
+    implementation("org.springframework:spring-jdbc")
+    implementation("org.flywaydb:flyway-core")
+    implementation("io.github.microutils:kotlin-logging:1.12.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
     // Use the Kotlin test library.
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
     testImplementation("com.natpryce:hamkrest:1.8.0.1")
+    testImplementation("io.r2dbc:r2dbc-h2:0.8.4.RELEASE")
 }

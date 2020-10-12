@@ -1,5 +1,6 @@
-package com.exentriquesolutions.covidukview
+package com.exentriquesolutions.covidukview.api
 
+import com.exentriquesolutions.covidukview.view.AreaType
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import kotlinx.coroutines.future.await
@@ -19,8 +20,8 @@ class ApiClient(private val objectMapper: ObjectMapper = createObjectMapper()) {
     suspend fun lookup(areaTypes: List<AreaType>, structureMap: Map<String, String>): List<Region> =
             apiCall(ApiEndPoint.LookUpEndPoint(areaTypes), structureMap)
 
-    suspend fun data(region: Region, structureMap: Map<String, String>): List<Cases> =
-            apiCall(ApiEndPoint.DataApiEndPoint(region), structureMap)
+    suspend fun data(areaType: AreaType, regionName: String, structureMap: Map<String, String>): List<Cases> =
+            apiCall(ApiEndPoint.DataApiEndPoint(areaType, regionName), structureMap)
 
     private suspend inline fun <reified T> apiCall(endPoint: ApiEndPoint<*>, structureMap: Map<String, String>): List<T> {
         val structure = createStructure(structureMap)
@@ -33,7 +34,7 @@ class ApiClient(private val objectMapper: ObjectMapper = createObjectMapper()) {
                     }
                     it.body()
                 }
-                .thenApply(ApiClient::gunzip)
+                .thenApply(Companion::gunzip)
                 .thenApply {
                     val results = objectMapper.readValue<Map<String, Any>>(it)
                     @Suppress("UNCHECKED_CAST") val data = results["data"] as List<Map<Any, Any>>
@@ -53,14 +54,14 @@ class ApiClient(private val objectMapper: ObjectMapper = createObjectMapper()) {
         private sealed class ApiEndPoint<T>(val endPoint: String) {
             abstract fun buildFilter(): String
 
-            class DataApiEndPoint(private val region: Region) : ApiEndPoint<Region>("data") {
-                override fun buildFilter(): String =
-                        "areaType=${region.type.apiCode};areaName=${region.name}"
-            }
-
             class LookUpEndPoint(private val areaTypes: List<AreaType>) : ApiEndPoint<List<AreaType>>("lookup") {
                 override fun buildFilter(): String =
                         areaTypes.joinToString(separator = "|") { "areaType=${it.apiCode}" }.encodeUrl()
+            }
+
+            class DataApiEndPoint(val areaType: AreaType, val regionName: String) : ApiEndPoint<Region>("data") {
+                override fun buildFilter(): String =
+                        "areaType=${areaType.apiCode};areaName=$regionName"
             }
         }
 
@@ -71,9 +72,10 @@ class ApiClient(private val objectMapper: ObjectMapper = createObjectMapper()) {
 
         fun gunzip(compressedStream: InputStream): String =
                 GZIPInputStream(compressedStream).use { gzipStream ->
-                    val writer = StringWriter()
-                    IOUtils.copy(gzipStream, writer, StandardCharsets.UTF_8)
-                    writer.toString()
+                    StringWriter().use {
+                        IOUtils.copy(gzipStream, it, StandardCharsets.UTF_8)
+                        it.toString()
+                    }
                 }
 
         private fun createClient(): HttpClient {

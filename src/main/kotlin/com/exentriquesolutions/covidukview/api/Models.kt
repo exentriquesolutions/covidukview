@@ -1,5 +1,6 @@
-package com.exentriquesolutions.covidukview
+package com.exentriquesolutions.covidukview.api
 
+import com.exentriquesolutions.covidukview.view.AreaType
 import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.DeserializationFeature
@@ -29,16 +30,13 @@ fun createObjectMapper(): ObjectMapper =
 
 data class Region(
         val name: String,
-        @JsonDeserialize(using = AreaTypeDeserializer::class) val type: AreaType
+
+        @JsonDeserialize(using = AreaTypeDeserializer::class)
+        val type: AreaType,
 )
 
 data class Cases(
-        @JsonDeserialize(using = LocalDateDeserializer::class) val date: LocalDate,
-        val count: Int
+        @JsonDeserialize(using = LocalDateDeserializer::class)
+        val date: LocalDate,
+        val count: Int,
 )
-
-
-enum class AreaType(val apiCode: String) {
-    UpperTierLocalAuthority("utla"),
-    LowerTierLocaLAuthority("ltla")
-}
