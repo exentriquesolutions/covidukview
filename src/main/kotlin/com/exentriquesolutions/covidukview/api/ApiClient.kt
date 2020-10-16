@@ -78,12 +78,11 @@ class ApiClient(private val objectMapper: ObjectMapper = createObjectMapper()) {
                     }
                 }
 
-        private fun createClient(): HttpClient {
-            return HttpClient.newBuilder()
-                    .version(HttpClient.Version.HTTP_2)
-                    .connectTimeout(TIMEOUT)
-                    .build()
-        }
+        private fun createClient(): HttpClient =
+                HttpClient.newBuilder()
+                        .version(HttpClient.Version.HTTP_2)
+                        .connectTimeout(TIMEOUT)
+                        .build()
 
         private fun createRequest(endPoint: ApiEndPoint<*>, structure: String): HttpRequest =
                 HttpRequest.newBuilder()
