@@ -1,6 +1,6 @@
 package com.exentriquesolutions.covidukview.api
 
-import com.exentriquesolutions.covidukview.view.AreaType
+import com.exentriquesolutions.covidukview.db.AreaType
 import org.springframework.stereotype.Component
 
 @Component

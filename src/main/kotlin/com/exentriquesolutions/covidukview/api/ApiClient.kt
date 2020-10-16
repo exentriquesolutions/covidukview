@@ -1,6 +1,6 @@
 package com.exentriquesolutions.covidukview.api
 
-import com.exentriquesolutions.covidukview.view.AreaType
+import com.exentriquesolutions.covidukview.db.AreaType
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import kotlinx.coroutines.future.await

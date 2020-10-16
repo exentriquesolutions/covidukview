@@ -1,10 +1,10 @@
 package com.exentriquesolutions.covidukview.loader
 
 import com.exentriquesolutions.covidukview.api.ApiLoader
-import com.exentriquesolutions.covidukview.view.Cases
-import com.exentriquesolutions.covidukview.view.CasesRepository
-import com.exentriquesolutions.covidukview.view.Region
-import com.exentriquesolutions.covidukview.view.RegionRepository
+import com.exentriquesolutions.covidukview.db.Cases
+import com.exentriquesolutions.covidukview.db.CasesRepository
+import com.exentriquesolutions.covidukview.db.Region
+import com.exentriquesolutions.covidukview.db.RegionRepository
 import kotlinx.coroutines.reactive.awaitFirstOrNull
 import kotlinx.coroutines.reactive.awaitSingle
 import mu.KotlinLogging
@@ -41,7 +41,6 @@ class CasesLoader(
     private suspend fun updateIfWithinLastWeek(cases: Cases) {
         if (cases.date.isAfter(lastWeek)) {
             save(cases)
-            log.info { "Updated $cases" }
         }
     }
 

@@ -1,7 +1,7 @@
 package com.exentriquesolutions.covidukview.loader
 
-import com.exentriquesolutions.covidukview.view.CasesRepository
-import com.exentriquesolutions.covidukview.view.RegionRepository
+import com.exentriquesolutions.covidukview.db.CasesRepository
+import com.exentriquesolutions.covidukview.db.RegionRepository
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
 import com.natpryce.hamkrest.greaterThan

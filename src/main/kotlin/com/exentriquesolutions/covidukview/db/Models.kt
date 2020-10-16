@@ -1,4 +1,4 @@
-package com.exentriquesolutions.covidukview.view
+package com.exentriquesolutions.covidukview.db
 
 import org.springframework.data.annotation.Id
 import java.time.LocalDate
