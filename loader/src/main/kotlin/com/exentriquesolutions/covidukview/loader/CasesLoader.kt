@@ -1,6 +1,5 @@
 package com.exentriquesolutions.covidukview.loader
 
-import com.exentriquesolutions.covidukview.api.ApiLoader
 import com.exentriquesolutions.covidukview.db.Cases
 import com.exentriquesolutions.covidukview.db.CasesRepository
 import com.exentriquesolutions.covidukview.db.Region
@@ -58,12 +57,12 @@ class CasesLoader(
                         log.info { "Saved $it" }
                     }
 
-    private fun com.exentriquesolutions.covidukview.api.Region.toView() =
+    private fun com.exentriquesolutions.covidukview.loader.Region.toView() =
             Region(name, type)
 
     private fun Region.toApi() =
-            com.exentriquesolutions.covidukview.api.Region(name, type)
+            com.exentriquesolutions.covidukview.loader.Region(name, type)
 
-    private fun com.exentriquesolutions.covidukview.api.Cases.toView(region: Region) =
+    private fun com.exentriquesolutions.covidukview.loader.Cases.toView(region: Region) =
             Cases(date, count, region.id!!)
 }

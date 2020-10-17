@@ -4,15 +4,10 @@ import kotlinx.coroutines.runBlocking
 import mu.KotlinLogging
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-import org.springframework.context.annotation.ComponentScan
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories
 import kotlin.system.exitProcess
 
 @SpringBootApplication
-@ComponentScan(
-        "com.exentriquesolutions.covidukview.api",
-        "com.exentriquesolutions.covidukview.loader"
-)
 @EnableR2dbcRepositories("com.exentriquesolutions.covidukview.db")
 class CasesLoaderApplication
 

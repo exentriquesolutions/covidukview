@@ -9,3 +9,8 @@ pluginManagement {
 }
 
 rootProject.name = "covidukview"
+include(
+        "persistence",
+        "loader",
+        "viewer"
+)

@@ -1,4 +1,4 @@
-package com.exentriquesolutions.covidukview.api
+package com.exentriquesolutions.covidukview.loader
 
 import com.exentriquesolutions.covidukview.db.AreaType
 import com.fasterxml.jackson.databind.ObjectMapper
