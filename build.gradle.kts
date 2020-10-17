@@ -33,6 +33,15 @@ subprojects {
     tasks.test {
         classpath = sourceSets.main.get().runtimeClasspath + classpath - files(tasks.jar)
         useJUnitPlatform()
+
+        testLogging {
+            events = setOf(
+                    org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED,
+                    org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED,
+                    org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED
+            )
+            exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+        }
     }
 
     apply(plugin = "org.springframework.boot")
