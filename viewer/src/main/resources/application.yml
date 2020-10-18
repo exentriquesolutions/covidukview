@@ -3,6 +3,12 @@ spring:
     url: r2dbc:postgresql://localhost:5432/covidukview_dev
     username: viewuser
     password: viewpass
+  resources:
+    cache:
+      period: 0
+    static-locations: file:viewer/dist, file:dist, classpath:/dist/, classpath:/META-INF/resources/, classpath:/resources/, classpath:/static/, classpath:/public/
+  webflux:
+    static-path-pattern: /static/**
 
 logging:
   level:
