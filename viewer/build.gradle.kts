@@ -1,11 +1,20 @@
-task<Exec>("npmInstall") {
-    commandLine = listOf("npm", "install")
-    dependsOn(project.sourceSets.main.get().output.classesDirs)
+import org.jetbrains.kotlin.ir.backend.js.compile
+
+delete {
+    delete("dist")
 }
 
-task<Exec>("webpack") {
+val npmInstall = task<Exec>("npmInstall") {
+    commandLine = listOf("npm", "install")
+}
+
+val webpack = task<Exec>("webpack") {
     commandLine = listOf("node_modules/.bin/webpack")
-    dependsOn(":viewer:npmInstall")
+    dependsOn(npmInstall)
+}
+
+tasks.compileTestKotlin {
+    dependsOn(webpack)
 }
 
 dependencies {
