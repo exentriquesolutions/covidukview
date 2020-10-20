@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.openqa.selenium.chrome.ChromeDriver
+import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.support.ui.Select
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
@@ -43,7 +44,13 @@ class IntegrationTest {
             Files.setPosixFilePermissions(CHROME_DRIVER_PATH, withExecutePermissions)
         }
         System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_PATH.toString())
-        driver = ChromeDriver()
+        val chromeOptions = ChromeOptions().addArguments(
+                "--no-sandbox",
+                "--headless",
+                "--disable-gpu",
+                "--window-size=1920,1200"
+        )
+        driver = ChromeDriver(chromeOptions)
     }
 
     @AfterAll
