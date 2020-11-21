@@ -22,3 +22,8 @@ enum class AreaType(val apiCode: String) {
     UpperTierLocalAuthority("utla"),
     LowerTierLocaLAuthority("ltla")
 }
+
+data class RollingAverage(
+        val date: LocalDate,
+        val count: Float
+)
